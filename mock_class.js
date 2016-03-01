@@ -1,11 +1,11 @@
 // See http://stackoverflow.com/questions/25688880/spy-on-a-constructor-using-jasmine
 // exports.stub = function (Subject) {
-//   var Surrogate = function () {
-//     Surrogate.prototype.constructor.apply(this, arguments);
-//   };
-//   Surrogate.prototype = Object.create(Subject.prototype);
-//   Surrogate.prototype.constructor = Subject;
-//   return Surrogate;
+//     var Surrogate = function () {
+//         Surrogate.prototype.constructor.apply(this, arguments);
+//     };
+//     Surrogate.prototype = Object.create(Subject.prototype);
+//     Surrogate.prototype.constructor = Subject;
+//     return Surrogate;
 // };
 
 function addMethods(ClassConst, methods) {
@@ -35,11 +35,11 @@ module.exports = function (title, methods) {
     getMock: () => {
       return ConstClass;
     },
-    getConstSpy:()=>{
+    getConstSpy: () => {
       let obj = _.find(spies, spy => spy.title === "init");
 
       return obj.spy;
-    }
+    },
     getSpy: spy_name => {
       let obj = _.find(spies, spy => spy.title === spy_name);
 
