@@ -1,22 +1,25 @@
+"use strict";
+
 var _ = require("lodash");
 
 module.exports = function (getSpy, title, getArgs) {
-  describe(`${ title }`, function () {
-    let args, spy;
+  describe("" + title, function () {
+    var args = undefined,
+        spy = undefined;
     beforeEach(function () {
       spy = getSpy();
       args = _.isFunction(getArgs) ? getArgs() : getArgs;
     });
 
-    afterEach(() => {
+    afterEach(function () {
       spy.calls.reset();
     });
 
-    it(`should call ${ title }`, function () {
+    it("should call " + title, function () {
       expect(spy).toHaveBeenCalled();
-      let calls = spy.calls.argsFor(0);
+      var calls = spy.calls.argsFor(0);
       // console.log(calls, args)
-      _.forEach(args, (arg, i) => {
+      _.forEach(args, function (arg, i) {
 
         if (_.isFunction(calls[i])) {
 

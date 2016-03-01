@@ -1,59 +1,65 @@
-const _ = require("lodash");
+"use strict";
 
-const spyManager = require("./spy_manager")();
+var _ = require("lodash");
+
+var spyManager = require("./spy_manager")();
 
 function getItem(list, title) {
-  let obj = _.find(list, spy => spy.title === title);
+  var obj = _.find(list, function (spy) {
+    return spy.title === title;
+  });
   if (_.isEmpty(obj)) return null;
   return obj;
 }
 
 function spyCreator(Module, manager) {
   return function (mod) {
-    let title = _.isString(mod) ? mod : mod.title;
-    let spy = manager.addSpy(mod).getSpy(title);
+    var title = _.isString(mod) ? mod : mod.title;
+    var spy = manager.addSpy(mod).getSpy(title);
     // console.log(title, mod)
-    let revert = Module.__set__(title, spy);
+    var revert = Module.__set__(title, spy);
     return { title: title, spy: spy, revert: revert };
   };
 }
 
 module.exports = function (Module) {
-  let spies = [];
-  let addSpy = spyCreator(Module, spyManager);
-  let obj = {
+  var spies = [];
+  var _addSpy = spyCreator(Module, spyManager);
+  var obj = {
     /** Adds multiple modules or single - expects strings */
-    addSpy: modules => {
+    addSpy: function addSpy(modules) {
 
       if (_.isArray(modules)) {
-        modules = _.map(modules, m => {
-          return addSpy(m);
+        modules = _.map(modules, function (m) {
+          return _addSpy(m);
         });
 
         spies = spies.concat(modules);
         return obj;
       }
 
-      if (_.isString(modules) || _.isObject(modules)) spies.push(addSpy(modules));
+      if (_.isString(modules) || _.isObject(modules)) spies.push(_addSpy(modules));
 
       return obj;
     },
-    getSpy: title => {
-      let obj = getItem(spies, title);
+    getSpy: function getSpy(title) {
+      var obj = getItem(spies, title);
       if (_.isNull(obj)) return null;
       return obj.spy;
     },
-    revertAll: () => {
-      _.forEach(spies, spy => {
+    revertAll: function revertAll() {
+      _.forEach(spies, function (spy) {
         // console.log('spy', spy);
         spy.revert();
       });
       spies = [];
     },
-    revertSpy: title => {
-      let obj = getItem(list, title);
+    revertSpy: function revertSpy(title) {
+      var obj = getItem(list, title);
       obj.revert();
-      spies = _.reject(spies, s => s.title === title);
+      spies = _.reject(spies, function (s) {
+        return s.title === title;
+      });
       return obj;
     }
 

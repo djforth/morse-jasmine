@@ -12,6 +12,23 @@
     "test:watch": "karma start --browsers PhantomJS",
     "test:mac": "karma start --single-run --browsers Chrome,Firefox,Safari"
   },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/djforth/morse-jasmine.git"

@@ -1,23 +1,25 @@
-const _ = require("lodash");
+"use strict";
+
+var _ = require("lodash");
 
 function addSpy(title, ret) {
-  let spy = jasmine.createSpy(title);
+  var spy = jasmine.createSpy(title);
   // addReturn(spy, ret)
   return { title: title, spy: spy };
 }
 
-function addReturn(spy, ret) {
+function _addReturn(spy, ret) {
   if (_.isObject(ret) && ret.function && ret.value) {
     spy.and[ret.function](ret.value);
   }
 }
 
 function addSpyObj(title, methods) {
-  let keys = _.map(methods, m => {
+  var keys = _.map(methods, function (m) {
     if (_.isString(m)) return m;
     return m.title;
   });
-  let spy = jasmine.createSpyObj(title, keys);
+  var spy = jasmine.createSpyObj(title, keys);
 
   // _.forEach(methods, (m)=>addReturn(spy[m.title], m) );
   return { title: title, spy: spy };
@@ -30,38 +32,42 @@ function addSpytype(title, opts) {
 }
 
 function getItem(list, title) {
-  let obj = _.find(list, spy => spy.title === title);
+  var obj = _.find(list, function (spy) {
+    return spy.title === title;
+  });
   if (_.isEmpty(obj)) return null;
   return obj;
 }
 
 function getSpy() {
-  let obj = getItem(spies, title);
+  var obj = getItem(spies, title);
   if (_.isNull(obj)) return null;
   return obj.spy;
 }
 
 function addSpyArray(spies) {
-  return _.map(spies, m => {
-    let title = _.isString(m) ? m : m.title;
-    let opts = _.isString(m) ? null : m.opts;
+  return _.map(spies, function (m) {
+    var title = _.isString(m) ? m : m.title;
+    var opts = _.isString(m) ? null : m.opts;
     return addSpytype(title, opts);
   });
 }
 
 module.exports = function () {
-  let spies = [];
+  var spies = [];
 
-  let obj = {
+  var obj = {
     /** Adds multiple modules or single - expects strings */
-    addSpy: modules => {
+    addSpy: function addSpy(modules) {
       if (_.isArray(modules)) {
         spies = spies.concat(addSpyArray(modules));
         return obj;
       }
 
       if (_.isObject(modules)) {
-        var [title, opts] = [modules.title, modules.opts];
+        var title = modules.title;
+        var opts = modules.opts;
+
         spies.push(addSpytype(title, opts));
       }
 
@@ -71,26 +77,28 @@ module.exports = function () {
 
       return obj;
     },
-    addReturn: (title, obj) => {
-      let spy = getItem(spies, title);
+    addReturn: function addReturn(title, obj) {
+      var spy = getItem(spies, title);
       if (_.isNull(obj)) return null;
       spy = spy.spy;
       if (obj) spy = spy[obj];
       return function (type, val) {
-        addReturn(spy, { function: type, value: val });
+        _addReturn(spy, { function: type, value: val });
       };
     },
-    getSpy: title => {
-      let obj = getItem(spies, title);
+    getSpy: function getSpy(title) {
+      var obj = getItem(spies, title);
       if (_.isNull(obj)) return null;
       return obj.spy;
     },
-    removeAll: () => {
+    removeAll: function removeAll() {
       spies = [];
       return obj;
     },
-    removeSpy: title => {
-      spies = _.reject(spies, s => s.title === title);
+    removeSpy: function removeSpy(title) {
+      spies = _.reject(spies, function (s) {
+        return s.title === title;
+      });
       return obj;
     }
   };
