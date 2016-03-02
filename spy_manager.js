@@ -53,6 +53,12 @@ function addSpyArray(spies) {
   });
 }
 
+function resetSpyObj(obj) {
+  _.forIn(obj, function (v, k) {
+    v.calls.reset();
+  });
+}
+
 module.exports = function () {
   var spies = [];
 
@@ -93,7 +99,11 @@ module.exports = function () {
     },
     removeAll: function removeAll() {
       _.forEach(spies, function (s) {
-        s.spy.calls.reset();
+        if (_.isPlainObject(s.spy)) {
+          resetSpyObj(s.spy);
+        } else {
+          s.spy.calls.reset();
+        }
       });
       spies = [];
       return obj;
@@ -101,7 +111,12 @@ module.exports = function () {
     removeSpy: function removeSpy(title) {
       spies = _.reject(spies, function (s) {
         if (s.title !== title) return false;
-        s.spy.calls.reset();
+        if (_.isPlainObject(s.spy)) {
+          resetSpyObj(s.spy);
+        } else {
+          s.spy.calls.reset();
+        }
+
         return true;
       });
       return obj;
