@@ -50,14 +50,14 @@ module.exports = function (Module) {
     revertAll: function revertAll() {
       _.forEach(spies, function (mod) {
         mod.spy.calls.reset();
-        mod.revert.revert();
+        mod.revert();
       });
       spies = [];
     },
     revertSpy: function revertSpy(title) {
       var mod = getItem(list, title);
       mod.spy.calls.reset();
-      mod.revert.revert();
+      mod.revert();
       spies = _.reject(spies, function (s) {
         return s.title === title;
       });

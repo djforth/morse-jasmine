@@ -46,7 +46,7 @@ module.exports =  function(Module){
     , revertAll:()=>{
       _.forEach(spies, (mod)=>{
         mod.spy.calls.reset();
-        mod.revert.revert();
+        mod.revert();
       });
       spies = [];
 
@@ -54,7 +54,7 @@ module.exports =  function(Module){
     , revertSpy:(title)=>{
       let mod = getItem(list, title);
       mod.spy.calls.reset();
-      mod.revert.revert()
+      mod.revert()
       spies = _.reject(spies, (s)=>s.title === title);
       return mod;
     }
