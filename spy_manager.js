@@ -101,7 +101,7 @@ module.exports = function () {
     removeSpy: function removeSpy(title) {
       spies = _.reject(spies, function (s) {
         if (s.title !== title) return false;
-        s.calls.reset();
+        s.spy.calls.reset();
         return true;
       });
       return obj;
