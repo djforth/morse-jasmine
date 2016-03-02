@@ -92,12 +92,17 @@ module.exports = function () {
       return obj.spy;
     },
     removeAll: function removeAll() {
+      _.forEach(spies, function (spy) {
+        spy.calls.reset();
+      });
       spies = [];
       return obj;
     },
     removeSpy: function removeSpy(title) {
       spies = _.reject(spies, function (s) {
-        return s.title === title;
+        if (s.title !== title) return false;
+        s.calls.reset();
+        return true;
       });
       return obj;
     }

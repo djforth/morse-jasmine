@@ -87,11 +87,18 @@ module.exports =  function(){
       return obj.spy;
     }
     , removeAll:()=>{
+      _.forEach(spies, (spy)=>{
+        spy.calls.reset();
+      })
       spies = [];
       return obj;
     }
     , removeSpy:(title)=>{
-      spies = _.reject(spies, (s)=>s.title === title);
+      spies = _.reject(spies, (s)=>{
+        if(s.title !== title) return false;
+        s.calls.reset();
+        return true;
+      });
       return obj;
     }
   }
