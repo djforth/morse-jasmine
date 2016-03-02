@@ -92,8 +92,8 @@ module.exports = function () {
       return obj.spy;
     },
     removeAll: function removeAll() {
-      _.forEach(spies, function (spy) {
-        spy.calls.reset();
+      _.forEach(spies, function (s) {
+        s.spy.calls.reset();
       });
       spies = [];
       return obj;
