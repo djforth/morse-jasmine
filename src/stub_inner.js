@@ -44,18 +44,19 @@ module.exports =  function(Module){
       return obj.spy;
     }
     , revertAll:()=>{
-      _.forEach(spies, (spy)=>{
-        // console.log('spy', spy);
-        spy.revert();
+      _.forEach(spies, (mod)=>{
+        mod.spy.calls.reset();
+        mod.revert.revert();
       });
       spies = [];
 
     }
     , revertSpy:(title)=>{
-      let obj = getItem(list, title);
-      obj.revert()
+      let mod = getItem(list, title);
+      mod.spy.calls.reset();
+      mod.revert.revert()
       spies = _.reject(spies, (s)=>s.title === title);
-      return obj;
+      return mod;
     }
 
   }

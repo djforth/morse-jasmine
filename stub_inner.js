@@ -48,19 +48,20 @@ module.exports = function (Module) {
       return obj.spy;
     },
     revertAll: function revertAll() {
-      _.forEach(spies, function (spy) {
-        // console.log('spy', spy);
-        spy.revert();
+      _.forEach(spies, function (mod) {
+        mod.spy.calls.reset();
+        mod.revert.revert();
       });
       spies = [];
     },
     revertSpy: function revertSpy(title) {
-      var obj = getItem(list, title);
-      obj.revert();
+      var mod = getItem(list, title);
+      mod.spy.calls.reset();
+      mod.revert.revert();
       spies = _.reject(spies, function (s) {
         return s.title === title;
       });
-      return obj;
+      return mod;
     }
 
   };
