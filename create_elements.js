@@ -10,7 +10,7 @@ function createElement(type){
   var obj = {
     addAttribute: function(attrs){
        _.forIn(attrs, function (value, attr) {
-        holder[attr] = value;
+        elem[attr] = value;
       });
 
       return obj;
