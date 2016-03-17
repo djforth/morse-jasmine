@@ -5,15 +5,15 @@ const spyManager = require("./spy_manager")()
     , chains     = require("./stub_chain_methods")
     , Stubs      = require("./stub_inners");
 
-module.exports = function(Mod){
-  let stubs = Stubs(Mod);
+// module.exports = function(Mod){
+//   let stubs = Stubs(Mod);
 
-  return {
-    add:function(type, spies){
+//   return {
+//     add:function(type, spies){
 
-    }
-    , stubs: function(method, return){
+//     }
+//     , stubs: function(method, return){
 
-    }
-  }
-}
+//     }
+//   }
+// }

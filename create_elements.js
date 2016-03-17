@@ -2,46 +2,33 @@
 
 var _ = require('lodash');
 
-function createElement(type){
-  type = type || "div";
-
-  var elem = document.createElement(type);
-
-  var obj = {
-    addAttribute: function(attrs){
-       _.forIn(attrs, function (value, attr) {
-        elem[attr] = value;
-      });
-
-      return obj;
-    }
-    , addId: function(id){
-      elem.id = id;
-      return obj;
-    }
-    , append:function(path){
-      path = path || document.body;
-      path.appendChild(elem);
-      return obj;
-    }
-    , get:()=>elem
-    , remove:function(){
-      elem.parentNode.removeChild(elem);
-    }
-  }
-
-  return obj;
-}
-
 exports.createHolder = function (id, path, el) {
-  let holder = createElement(el)
-                .addId(id)
-                .append(path)
+  el = el || "div";
+  path = path || document.body;
 
-  return holder.get();
+  var holder = document.createElement(el);
+  holder.id = id;
+  path.appendChild(holder);
+  return holder;
 };
 
-exports.create = createElement;
+exports.createElement = function (path, attrs, el) {
+  el = el || "div";
+
+  var holder = document.createElement(el);
+
+  if (attrs) {
+    _.forEach(attrs, function (v, a) {
+      holder[a] = v;
+    });
+  }
+
+  if (path) {
+    path.appendChild(holder);
+  }
+
+  return holder;
+};
 
 exports.removeElement = function (el) {
   el.parentNode.removeChild(el);
