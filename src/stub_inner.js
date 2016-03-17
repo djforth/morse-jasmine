@@ -18,6 +18,16 @@ function spyCreator(Module, manager){
   }
 }
 
+function resetSpy(spy){
+  if(_.isPlainObject(spy)){
+    _.forIn(spy, function(v, k){
+      v.calls.reset();
+    })
+  } else {
+    spy.calls.reset();
+  }
+}
+
 module.exports =  function(Module){
   let spies  = []
   let addSpy = spyCreator(Module, spyManager);
@@ -45,7 +55,7 @@ module.exports =  function(Module){
     }
     , revertAll:()=>{
       _.forEach(spies, (mod)=>{
-        mod.spy.calls.reset();
+        resetSpy(mod.spy);
         mod.revert();
       });
       spies = [];
@@ -53,7 +63,7 @@ module.exports =  function(Module){
     }
     , revertSpy:(title)=>{
       let mod = getItem(list, title);
-      mod.spy.calls.reset();
+      resetSpy(mod.spy);
       mod.revert()
       spies = _.reject(spies, (s)=>s.title === title);
       return mod;
