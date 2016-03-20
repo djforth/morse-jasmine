@@ -53,6 +53,12 @@ module.exports =  function(Module){
       if(_.isNull(obj)) return null;
       return obj.spy;
     }
+    , return:(title)=>{
+      let mod = getItem(list, title).spy;
+      return function(func, value){
+        spy.and[func](value);
+      }
+    }
     , revertAll:()=>{
       _.forEach(spies, (mod)=>{
         resetSpy(mod.spy);
@@ -67,6 +73,12 @@ module.exports =  function(Module){
       mod.revert()
       spies = _.reject(spies, (s)=>s.title === title);
       return mod;
+    }
+    , setSpies:(spy_list)=>{
+      _.forEach(spy_list, (sl)=>{
+        let mod = getItem(list, sl.title);
+        spy.and[sl.func](sl.value);
+      })
     }
 
   }
