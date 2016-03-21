@@ -1,6 +1,6 @@
 {
   "name": "@djforth/morse-jasmine",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Utilies for Jasmine Tests",
   "main": "index.js",
   "scripts": {
@@ -67,7 +67,7 @@
     "rewireify": "^0.2.5",
     "watchify": "^3.7.0"
   },
-  "dependencies":{},
+  "dependencies": {},
   "peerDependencies": {
     "jasmine-core": "^2.4.1",
     "lodash": "^4.6.1",
