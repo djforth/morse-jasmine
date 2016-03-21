@@ -1,6 +1,6 @@
 {
   "name": "@djforth/morse-jasmine",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Utilies for Jasmine Tests",
   "main": "index.js",
   "scripts": {
