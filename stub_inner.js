@@ -82,7 +82,7 @@ module.exports = function (Module) {
     setSpies: function setSpies(spy_list) {
       _.forEach(spy_list, function (sl) {
         var mod = getItem(spies, sl.title);
-        spy.and[sl.func](sl.value);
+        mod.spy.and[sl.func](sl.value);
       });
     }
 

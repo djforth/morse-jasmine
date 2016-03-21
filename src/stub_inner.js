@@ -77,7 +77,7 @@ module.exports =  function(Module){
     , setSpies:(spy_list)=>{
       _.forEach(spy_list, (sl)=>{
         let mod = getItem(spies, sl.title);
-        spy.and[sl.func](sl.value);
+        mod.spy.and[sl.func](sl.value);
       })
     }
 
