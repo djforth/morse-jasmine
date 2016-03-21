@@ -62,14 +62,15 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-safari-launcher": "^0.1.1",
     "karma-story-reporter": "^0.3.1",
-    "lodash": "^4.5.1",
+    "lodash": "^4.6.1",
     "phantomjs-prebuilt": "^2.1.4",
     "rewireify": "^0.2.5",
     "watchify": "^3.7.0"
   },
+  "dependencies":{},
   "peerDependencies": {
     "jasmine-core": "^2.4.1",
-    "lodash": "^4.5.1",
+    "lodash": "^4.6.1",
     "rewireify": "^0.2.5"
   }
 }
