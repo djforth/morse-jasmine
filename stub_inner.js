@@ -63,13 +63,13 @@ module.exports = function (Module) {
       return obj.spy;
     },
     return: function _return(title) {
-      var mod = getItem(list, title).spy;
+      var mod = getItem(spies, title).spy;
       return function (func, value) {
         mod.and[func](value);
       };
     },
     returnObj: function returnObj(title) {
-      var mod = getItem(list, title).spy;
+      var mod = getItem(spies, title).spy;
       return function (opts) {
         _.forEach(opts, function (opt) {
           mod[opt.title].and[opt.func](opt.value);
