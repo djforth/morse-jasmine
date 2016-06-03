@@ -4,8 +4,8 @@ var _ = require("lodash");
 
 module.exports = function (getSpy, title, getArgs) {
   describe("" + title, function () {
-    var args = undefined,
-        spy = undefined;
+    var args = void 0,
+        spy = void 0;
     beforeEach(function () {
       spy = getSpy();
       args = _.isFunction(getArgs) ? getArgs() : getArgs;

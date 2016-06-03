@@ -6,8 +6,8 @@ var checkCalls = require("./check_calls");
 module.exports = function (list) {
 
   _.forIn(list, function (v, k) {
-    var spy = undefined,
-        args = undefined;
+    var spy = void 0,
+        args = void 0;
     if (_.isArray(v)) {
       spy = v[0];
       args = v[1];

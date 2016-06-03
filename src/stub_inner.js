@@ -12,9 +12,8 @@ function spyCreator(Module, manager){
   return function(mod){
     let title = (_.isString(mod)) ? mod : mod.title;
     let spy    = manager.addSpy(mod).getSpy(title);
-    // console.log(title, mod)
-    let revert = Module.__set__(title, spy);
-    return {title:title, spy:spy, revert:revert}
+    Module.__Rewire__(title, spy);
+    return {title:title, spy:spy}
   }
 }
 
@@ -62,7 +61,8 @@ module.exports =  function(Module){
     , revertAll:()=>{
       _.forEach(spies, (mod)=>{
         resetSpy(mod.spy);
-        mod.revert();
+        // mod.revert();
+        Module.__ResetDependency__(mod.title);
       });
       spies = [];
 
@@ -70,7 +70,8 @@ module.exports =  function(Module){
     , revertSpy:(title)=>{
       let mod = getItem(list, title);
       resetSpy(mod.spy);
-      mod.revert()
+      // mod.revert()
+      Module.__ResetDependency__(mod.title)
       spies = _.reject(spies, (s)=>s.title === title);
       return mod;
     }
