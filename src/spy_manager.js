@@ -60,8 +60,9 @@ module.exports =  function(){
  let spies    = []
 
   let obj = {
+    add: (modules)=> this.addSpy(modules)
     /** Adds multiple modules or single - expects strings */
-    addSpy:(modules)=>{
+    , addSpy:(modules)=>{
       if(_.isArray(modules)){
         spies = spies.concat(addSpyArray(modules));
         return obj;
@@ -87,11 +88,20 @@ module.exports =  function(){
         addReturn(spy, {function:type, value:val})
       };
     }
+    , returnObj:(title)=>{
+      let spy = getItem(spies, title).spy;
+      return function(opts){
+        _.forEach(opts, (opt)=>{
+          spy[opt.title].and[opt.func](opt.value)
+        })
+      }
+    }
     , getSpy:(title)=>{
       let obj = getItem(spies, title)
       if(_.isNull(obj)) return null;
       return obj.spy;
     }
+    , get: (title)=>this.getSpy(modules)
     , removeAll:()=>{
       _.forEach(spies, (s)=>{
         if(_.isPlainObject(s.spy)){

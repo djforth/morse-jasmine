@@ -27,12 +27,15 @@ function resetSpy(spy){
   }
 }
 
+
+
 module.exports =  function(Module){
   let spies  = []
   let addSpy = spyCreator(Module, spyManager);
   let obj = {
+    add: (modules)=> this.addSpy(modules)
     /** Adds multiple modules or single - expects strings */
-    addSpy:(modules)=>{
+    , addSpy:(modules)=>{
 
       if(_.isArray(modules)){
         modules = _.map(modules, (m)=>{
@@ -47,6 +50,7 @@ module.exports =  function(Module){
 
       return obj;
     }
+    , get: (title)=> this.getSpy(modules)
     , getSpy:(title)=>{
       let obj = getItem(spies, title)
       if(_.isNull(obj)) return null;
@@ -55,7 +59,15 @@ module.exports =  function(Module){
     , return:(title)=>{
       let mod = getItem(list, title).spy;
       return function(func, value){
-        spy.and[func](value);
+        mod.and[func](value);
+      }
+    }
+    , returnObj:(title)=>{
+      let mod = getItem(list, title).spy;
+      return function(opts){
+        _.forEach(opts, (opt)=>{
+          mod[opt.title].and[opt.func](opt.value)
+        })
       }
     }
     , revertAll:()=>{

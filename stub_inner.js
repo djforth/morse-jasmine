@@ -32,11 +32,16 @@ function resetSpy(spy) {
 }
 
 module.exports = function (Module) {
+  var _this = this;
+
   var spies = [];
   var _addSpy = spyCreator(Module, spyManager);
   var obj = {
+    add: function add(modules) {
+      return _this.addSpy(modules);
+    }
     /** Adds multiple modules or single - expects strings */
-    addSpy: function addSpy(modules) {
+    , addSpy: function addSpy(modules) {
 
       if (_.isArray(modules)) {
         modules = _.map(modules, function (m) {
@@ -51,6 +56,9 @@ module.exports = function (Module) {
 
       return obj;
     },
+    get: function get(title) {
+      return _this.getSpy(modules);
+    },
     getSpy: function getSpy(title) {
       var obj = getItem(spies, title);
       if (_.isNull(obj)) return null;
@@ -59,7 +67,15 @@ module.exports = function (Module) {
     return: function _return(title) {
       var mod = getItem(list, title).spy;
       return function (func, value) {
-        spy.and[func](value);
+        mod.and[func](value);
+      };
+    },
+    returnObj: function returnObj(title) {
+      var mod = getItem(list, title).spy;
+      return function (opts) {
+        _.forEach(opts, function (opt) {
+          mod[opt.title].and[opt.func](opt.value);
+        });
       };
     },
     revertAll: function revertAll() {
