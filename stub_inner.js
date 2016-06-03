@@ -32,13 +32,11 @@ function resetSpy(spy) {
 }
 
 module.exports = function (Module) {
-  var _this = this;
-
   var spies = [];
   var _addSpy = spyCreator(Module, spyManager);
   var obj = {
     add: function add(modules) {
-      return _this.addSpy(modules);
+      return obj.addSpy(modules);
     }
     /** Adds multiple modules or single - expects strings */
     , addSpy: function addSpy(modules) {
@@ -57,7 +55,7 @@ module.exports = function (Module) {
       return obj;
     },
     get: function get(title) {
-      return _this.getSpy(modules);
+      return obj.getSpy(title);
     },
     getSpy: function getSpy(title) {
       var obj = getItem(spies, title);

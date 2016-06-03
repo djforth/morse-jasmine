@@ -60,7 +60,7 @@ module.exports =  function(){
  let spies    = []
 
   let obj = {
-    add: (modules)=> this.addSpy(modules)
+    add: (modules)=> obj.addSpy(modules)
     /** Adds multiple modules or single - expects strings */
     , addSpy:(modules)=>{
       if(_.isArray(modules)){
@@ -101,7 +101,7 @@ module.exports =  function(){
       if(_.isNull(obj)) return null;
       return obj.spy;
     }
-    , get: (title)=>this.getSpy(modules)
+    , get: (title)=>obj.getSpy(title)
     , removeAll:()=>{
       _.forEach(spies, (s)=>{
         if(_.isPlainObject(s.spy)){

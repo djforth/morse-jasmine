@@ -60,13 +60,11 @@ function resetSpyObj(obj) {
 }
 
 module.exports = function () {
-  var _this = this;
-
   var spies = [];
 
   var obj = {
     add: function add(modules) {
-      return _this.addSpy(modules);
+      return obj.addSpy(modules);
     }
     /** Adds multiple modules or single - expects strings */
     , addSpy: function addSpy(modules) {
@@ -111,7 +109,7 @@ module.exports = function () {
       return obj.spy;
     },
     get: function get(title) {
-      return _this.getSpy(modules);
+      return obj.getSpy(title);
     },
     removeAll: function removeAll() {
       _.forEach(spies, function (s) {

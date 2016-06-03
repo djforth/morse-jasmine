@@ -33,7 +33,7 @@ module.exports =  function(Module){
   let spies  = []
   let addSpy = spyCreator(Module, spyManager);
   let obj = {
-    add: (modules)=> this.addSpy(modules)
+    add: (modules)=> obj.addSpy(modules)
     /** Adds multiple modules or single - expects strings */
     , addSpy:(modules)=>{
 
@@ -50,7 +50,7 @@ module.exports =  function(Module){
 
       return obj;
     }
-    , get: (title)=> this.getSpy(modules)
+    , get: (title)=> obj.getSpy(title)
     , getSpy:(title)=>{
       let obj = getItem(spies, title)
       if(_.isNull(obj)) return null;
