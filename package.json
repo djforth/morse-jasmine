@@ -1,6 +1,6 @@
 {
   "name": "@djforth/morse-jasmine-wp",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Utilies for Jasmine Tests",
   "main": "index.js",
   "eslintConfig": {
