@@ -20,6 +20,6 @@ module.exports = function (list) {
       callCount = _.has(v, callCount) ? v.callCount : 0;
     }
 
-    checkCalls(spy, k, args);
+    checkCalls(spy, k, args, callCount);
   });
 };
