@@ -3,6 +3,25 @@
   "version": "2.1.2",
   "description": "Utilies for Jasmine Tests",
   "main": "index.js",
+  "eslintConfig": {
+    "extends": "morsedigital",
+    "env": {
+      "jasmine": true
+    },
+    "globals": {
+      "fdescribe": true,
+      "describe": false,
+      "beforeEach": false,
+      "afterEach": false,
+      "it": true,
+      "expect": true,
+      "spyOn": true
+    },
+    "rules": {
+      "react/jsx-uses-vars": 1,
+      "require-jsdoc": 0
+    }
+  },
   "scripts": {
     "build": "babel src -x '.js'  -d ./",
     "build:watch": "babel src -x '.js' -w --source-maps  -d ./",

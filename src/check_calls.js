@@ -1,7 +1,7 @@
-var _ = require("lodash");
+var _ = require('lodash');
 
-module.exports  = function(getSpy, title, getArgs){
-  describe(`${title}`, function() {
+module.exports  = function(getSpy, title, getArgs, callCount){
+  describe(`${title}`, function(){
     let args, spy;
     beforeEach(function(){
       spy = getSpy();
@@ -9,27 +9,22 @@ module.exports  = function(getSpy, title, getArgs){
     });
 
     afterEach(()=>{
-      spy.calls.reset()
+      spy.calls.reset();
     });
 
-    it(`should call ${title}`, function() {
+    it(`should call ${title}`, function(){
       expect(spy).toHaveBeenCalled();
-      let calls = spy.calls.argsFor(0);
+      let calls = spy.calls.argsFor(callCount || 0);
       // console.log(calls, args)
       _.forEach(args, (arg, i)=>{
-
-        if(_.isFunction(calls[i])){
-
+        if (_.isFunction(calls[i])){
           expect(arg).toEqual(jasmine.any(Function));
-        } else if (_.isPlainObject(calls[i])) {
+        } else if (_.isPlainObject(calls[i])){
           expect(_.keys(calls[i])).toEqual(_.keys(arg));
         } else {
           expect(calls[i]).toEqual(arg);
         }
-
       });
     });
   });
-
-
-}
+};

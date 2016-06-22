@@ -57,7 +57,13 @@ module.exports =  function(Module){
       return obj.spy;
     }
     , return:(title)=>{
-      let mod = getItem(spies, title).spy;
+      let mod = getItem(spies, title);
+      if(_.isNull(mod)){
+        obj.addSpy(title)
+        mod = getItem(spies, title)
+      }
+
+      mod = mod.spy;
       return function(func, value){
         mod.and[func](value);
       }

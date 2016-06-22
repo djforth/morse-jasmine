@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-var _ = require("lodash");
+var _ = require('lodash');
 
-module.exports = function (getSpy, title, getArgs) {
-  describe("" + title, function () {
+module.exports = function (getSpy, title, getArgs, callCount) {
+  describe('' + title, function () {
     var args = void 0,
         spy = void 0;
     beforeEach(function () {
@@ -15,14 +15,12 @@ module.exports = function (getSpy, title, getArgs) {
       spy.calls.reset();
     });
 
-    it("should call " + title, function () {
+    it('should call ' + title, function () {
       expect(spy).toHaveBeenCalled();
-      var calls = spy.calls.argsFor(0);
+      var calls = spy.calls.argsFor(callCount || 0);
       // console.log(calls, args)
       _.forEach(args, function (arg, i) {
-
         if (_.isFunction(calls[i])) {
-
           expect(arg).toEqual(jasmine.any(Function));
         } else if (_.isPlainObject(calls[i])) {
           expect(_.keys(calls[i])).toEqual(_.keys(arg));

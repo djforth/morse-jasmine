@@ -88,7 +88,10 @@ module.exports = function () {
     },
     addReturn: function addReturn(title, obj) {
       var spy = getItem(spies, title);
-      if (_.isNull(obj)) return null;
+      if (_.isNull(obj)) {
+        obj.addSpy(title);
+        spy = getItem(spies, title);
+      }
       spy = spy.spy;
       if (obj) spy = spy[obj];
       return function (type, val) {
