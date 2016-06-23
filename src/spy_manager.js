@@ -79,14 +79,14 @@ module.exports =  function(){
 
       return obj;
     }
-    , addReturn:(title, obj)=>{
+    , addReturn:(title, spy_obj)=>{
       let spy = getItem(spies, title)
-      if(_.isNull(obj)) {
+      if(_.isNull(spy)) {
         obj.addSpy(title);
         spy = getItem(spies, title)
       }
       spy = spy.spy
-      if(obj) spy =  spy[obj]
+      if(spy_obj) spy =  spy[spy_obj]
       return function(type, val){
         addReturn(spy, {function:type, value:val})
       };
