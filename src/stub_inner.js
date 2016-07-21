@@ -39,7 +39,7 @@ module.exports =  function(Module){
 
       if(_.isArray(modules)){
         modules = _.map(modules, (m)=>{
-          return addSpy(m)
+          return addSpy(m);
         });
 
         spies = spies.concat(modules);
@@ -56,14 +56,15 @@ module.exports =  function(Module){
       if(_.isNull(obj)) return null;
       return obj.spy;
     }
-    , return:(title)=>{
+    , return:(title, mod_obj)=>{
       let mod = getItem(spies, title);
       if(_.isNull(mod)){
-        obj.addSpy(title)
-        mod = getItem(spies, title)
+        obj.addSpy(title);
+        mod = getItem(spies, title);
       }
 
       mod = mod.spy;
+      if (mod_obj) mod = mod[mod_obj];
       return function(func, value){
         mod.and[func](value);
       }

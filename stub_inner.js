@@ -62,7 +62,7 @@ module.exports = function (Module) {
       if (_.isNull(obj)) return null;
       return obj.spy;
     },
-    return: function _return(title) {
+    return: function _return(title, mod_obj) {
       var mod = getItem(spies, title);
       if (_.isNull(mod)) {
         obj.addSpy(title);
@@ -70,6 +70,7 @@ module.exports = function (Module) {
       }
 
       mod = mod.spy;
+      if (mod_obj) mod = mod[mod_obj];
       return function (func, value) {
         mod.and[func](value);
       };
