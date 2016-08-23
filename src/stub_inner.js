@@ -51,15 +51,16 @@ module.exports =  function(Module){
       return obj;
     }
     , get: (title)=> obj.getSpy(title)
-    , getSpy:(title)=>{
+    , getSpy: (title)=>{
       let obj = getItem(spies, title)
-      if(_.isNull(obj)) return null;
+      if (_.isNull(obj)) return null;
       return obj.spy;
     }
     , return:(title, mod_obj)=>{
       let mod = getItem(spies, title);
-      if(_.isNull(mod)){
-        obj.addSpy(title);
+      if (_.isNull(mod)){
+        var new_spy = (spy_obj) ? {title: title, opts: [spy_obj]} : title;
+        obj.addSpy(new_spy);
         mod = getItem(spies, title);
       }
 
