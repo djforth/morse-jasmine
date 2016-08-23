@@ -65,7 +65,7 @@ module.exports = function (Module) {
     return: function _return(title, mod_obj) {
       var mod = getItem(spies, title);
       if (_.isNull(mod)) {
-        var new_spy = spy_obj ? { title: title, opts: [spy_obj] } : title;
+        var new_spy = mod_obj ? { title: title, opts: [mod_obj] } : title;
         obj.addSpy(new_spy);
         mod = getItem(spies, title);
       }
