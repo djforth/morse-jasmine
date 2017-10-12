@@ -1,0 +1,25 @@
+{
+  "presets": [],
+  "env": {
+    "production": {
+      "plugins": [
+        "lodash",
+        "add-module-exports"
+      ]
+      , "presets": [
+        ["env", {
+          modules: "umd",
+          "targets": {
+              'node': 4,
+              "browsers": [
+                "last 2 versions",
+                "chrome >= 55",
+                "IE >= 11"
+              ]
+            }
+        }]
+        , ["minify", {mangle:false}]
+      ]
+    }
+  }
+}

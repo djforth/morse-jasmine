@@ -1,7 +1,1 @@
-"use strict";
-
-module.exports = function (Module) {
-  return function (mod) {
-    return Module.__get__(mod);
-  };
-};
+(function(global,factory){if("function"==typeof define&&define.amd)define(["module"],factory);else if("undefined"!=typeof exports)factory(module);else{var mod={exports:{}};factory(mod),global.get_module=mod.exports}})(this,function(module){"use strict";module.exports=function(Module){return function(mod){return Module.__get__(mod)}}});

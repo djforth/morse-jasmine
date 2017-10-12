@@ -1,21 +1,21 @@
-var _ = require('lodash');
+import _ from 'lodash';
 
-function createStubsAndSpies(stubs, spyManager){
-  return function(items){
+function createStubsAndSpies(stubs, spyManager) {
+  return function(items) {
     stubs.add(items);
-    var spyManger = items.map((item)=>`${item}Something`);
+    let spyManger = items.map(item => `${item}Something`);
     spyManager.add(spyManger);
 
-    items.forEach((item)=>{
+    items.forEach(item => {
       stubs.return(item)('returnValue', spyManager.get(`${item}Something`));
     });
   };
 }
 
-function CreateSpy(spyManager){
-  return function(spy){
-    if (_.has(spy, 'callback')){
-      var {title, returnType, callback} = spy;
+function CreateSpy(spyManager) {
+  return function(spy) {
+    if (_.has(spy, 'callback')) {
+      let { title, returnType, callback } = spy;
       spyManager.addReturn(title)(returnType || 'returnValue', callback);
       return spyManager.get(title);
     }
@@ -25,12 +25,12 @@ function CreateSpy(spyManager){
   };
 }
 
-function CreateStub(stubs, createSpy){
-  return function(stub){
-    if (_.has(stub, 'callback') || _.has(stub, 'spy')){
-      var {title, returnType, callback, spy} = stub;
-      title = (_.isArray(title)) ? title : [title];
-      if (spy){
+function CreateStub(stubs, createSpy) {
+  return function(stub) {
+    if (_.has(stub, 'callback') || _.has(stub, 'spy')) {
+      let { title, returnType, callback, spy } = stub;
+      title = _.isArray(title) ? title : [title];
+      if (spy) {
         spy = createSpy(spy);
         stubs.return.apply(this, title)('returnValue', spy);
       } else {
@@ -45,16 +45,16 @@ function CreateStub(stubs, createSpy){
   };
 }
 
-export default (stubs, spyManager)=>{
-  var createSpy = CreateSpy(spyManager);
-  var createStub = CreateStub(stubs, createSpy);
-  return (list)=>{
-    list.forEach((item)=>{
-      if (_.has(item, 'stub')){
+export default (stubs, spyManager) => {
+  let createSpy = CreateSpy(spyManager);
+  let createStub = CreateStub(stubs, createSpy);
+  return list => {
+    list.forEach(item => {
+      if (_.has(item, 'stub')) {
         createStub(item.stub);
-      } else if (_.has(item, 'spy')){
+      } else if (_.has(item, 'spy')) {
         createSpy(item.spy);
       }
     });
-  }
-}
+  };
+};

@@ -1,7 +1,5 @@
-
-
-module.exports = function(Module){
-  return function(mod){
+module.exports = function(Module) {
+  return function(mod) {
     return Module.__get__(mod);
-  }
-}
+  };
+};

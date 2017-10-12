@@ -1,11 +1,1 @@
-'use strict';
-
-module.exports = function simulateClick(el, ev) {
-  var event = new Event(ev, {
-    'view': window,
-    'bubbles': true,
-    'cancelable': true
-  });
-
-  el.dispatchEvent(event);
-};
+(function(global,factory){if("function"==typeof define&&define.amd)define(["module"],factory);else if("undefined"!=typeof exports)factory(module);else{var mod={exports:{}};factory(mod),global.simulate_click=mod.exports}})(this,function(module){"use strict";module.exports=function(el,ev){var event=new Event(ev,{view:window,bubbles:!0,cancelable:!0});el.dispatchEvent(event)}});
